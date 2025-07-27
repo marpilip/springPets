@@ -1,6 +1,5 @@
 package bank.springbootmvc.controllers;
 
-import bank.springbootmvc.dto.UserDto;
 import bank.springbootmvc.model.User;
 import bank.springbootmvc.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
