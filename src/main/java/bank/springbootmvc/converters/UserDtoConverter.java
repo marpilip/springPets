@@ -34,9 +34,9 @@ public class UserDtoConverter {
         return userDto;
     }
 
-    public User convertToEntity(UserDto dto) {
+    public User convertFromDto(UserDto dto) {
         List<Pet> pets = dto.getPets() != null
-                ? dto.getPets().stream().map(petDtoConverter::convertToEntity).toList()
+                ? dto.getPets().stream().map(petDtoConverter::convertFromDto).toList()
                 : new ArrayList<>();
 
         return new User(

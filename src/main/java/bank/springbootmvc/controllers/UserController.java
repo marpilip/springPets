@@ -24,7 +24,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody @Validated UserDto userDto) {
-        User createdUser = userService.createUser(userDtoConverter.convertToEntity(userDto));
+        User createdUser = userService.createUser(userDtoConverter.convertFromDto(userDto));
         return ResponseEntity.ok(userDtoConverter.convertToDto(createdUser));
     }
 
@@ -36,7 +36,7 @@ public class UserController {
                 userDto.getName(),
                 userDto.getEmail(),
                 userDto.getAge(),
-                userDto.getPets().stream().map(petDtoConverter::convertToEntity).toList()
+                userDto.getPets().stream().map(petDtoConverter::convertFromDto).toList()
         );
 
         User updatedUser = userService.updateUser(user);

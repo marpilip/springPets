@@ -21,7 +21,7 @@ public class PetController {
 
     @PostMapping
     public ResponseEntity<PetDto> createPet(@RequestBody @Validated PetDto petDto) {
-        Pet pet = petDtoConverter.convertToEntity(petDto);
+        Pet pet = petDtoConverter.convertFromDto(petDto);
         Pet createdPet = petService.createPet(pet);
         return ResponseEntity.ok().body(petDtoConverter.convertToDto(createdPet));
     }

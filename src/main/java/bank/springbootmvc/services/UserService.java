@@ -22,11 +22,11 @@ public class UserService {
 
     public User createUser(User user) {
         if (user.id() != null) {
-            throw new IllegalArgumentException("Id пользователя уже существует");
+            throw new IllegalArgumentException("ID пользователя должен быть null при создании");
         }
 
         if (user.pets() != null && !user.pets().isEmpty()) {
-            throw new IllegalArgumentException("User pets must be empty");
+            throw new IllegalArgumentException("Список питомцев пользователя должен быть пустым при создании");
         }
 
         Long id = counter.incrementAndGet();
@@ -46,7 +46,7 @@ public class UserService {
 
     public User updateUser(User user) {
         if (user.id() == null) {
-            throw new IllegalArgumentException("Пользователь не найден с id");
+            throw new IllegalArgumentException("ID пользователя не может быть null");
         }
 
         if (!users.containsKey(user.id())) {

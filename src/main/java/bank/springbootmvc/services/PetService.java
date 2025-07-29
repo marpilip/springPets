@@ -32,7 +32,7 @@ public class PetService {
 
     public Pet updatePet(Pet pet) {
         if (pet.id() == null) {
-            throw new NoSuchElementException("Pet id is required");
+            throw new NoSuchElementException("ID питомца не может быть null");
         }
 
         Pet foundPet = findPetById(pet.id()).orElseThrow(NoSuchElementException::new);
@@ -51,7 +51,7 @@ public class PetService {
 
     public void deletePet(Pet pet) {
         if (pet.id() == null) {
-            throw new NoSuchElementException("Pet id is required");
+            throw new NoSuchElementException("ID питомца не может быть null");
         }
 
         Pet foundPet = findPetById(pet.id()).orElseThrow(NoSuchElementException::new);

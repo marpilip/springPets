@@ -15,7 +15,7 @@ public class PetDtoConverter {
         return petDto;
     }
 
-    public Pet convertToEntity(PetDto petDto) {
+    public Pet convertFromDto(PetDto petDto) {
         return new Pet(
                 petDto.getId(),
                 petDto.getName(),

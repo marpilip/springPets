@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -53,5 +53,78 @@ class UserControllerTest {
         Assertions.assertEquals(user.age(), userResponse.age());
         Assertions.assertEquals(user.pets(), userResponse.pets());
         Assertions.assertNotNull(userResponse.id());
+    }
+
+    @Test
+    void getUser() throws Exception {
+        User user = userService.createUser(new User(
+                null,
+                "Test User",
+                "test@example.com",
+                20,
+                new ArrayList<>()
+        ));
+
+        String responseJson = mockMvc.perform(get("/users/" + user.id()))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        User responseUser = objectMapper.readValue(responseJson, User.class);
+        Assertions.assertEquals(user.id(), responseUser.id());
+    }
+
+    @Test
+    void updateUser() throws Exception {
+        User user = userService.createUser(new User(
+                null,
+                "Test User",
+                "test@example.com",
+                20,
+                new ArrayList<>()
+        ));
+
+        User updatedUser = new User(
+                user.id(),
+                "Test User Updated",
+                "testUpdated@example.com",
+                23,
+                new ArrayList<>()
+        );
+
+        String userJson = objectMapper.writeValueAsString(updatedUser);
+
+        String responseJson = mockMvc.perform(put("/users/" + user.id())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        User responseUser = objectMapper.readValue(responseJson, User.class);
+
+        Assertions.assertEquals(user.id(), responseUser.id());
+        Assertions.assertEquals(updatedUser.name(), responseUser.name());
+        Assertions.assertEquals(updatedUser.email(), responseUser.email());
+        Assertions.assertEquals(updatedUser.age(), responseUser.age());
+        Assertions.assertEquals(updatedUser.pets(), responseUser.pets());
+    }
+
+    @Test
+    void deleteUser() throws Exception {
+        User user = userService.createUser(new User(
+                null,
+                "Test User",
+                "test@example.com",
+                20,
+                new ArrayList<>()
+        ));
+
+        mockMvc.perform(delete("/users/" + user.id()))
+                .andExpect(status().isNoContent());
+
+        Assertions.assertEquals(new ArrayList<>(), userService.getAllUsers());
     }
 }
