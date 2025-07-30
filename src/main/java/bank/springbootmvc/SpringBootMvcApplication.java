@@ -1,13 +1,13 @@
-package bank.springpets;
+package bank.springbootmvc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringpetsApplication {
+public class SpringBootMvcApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringpetsApplication.class, args);
+        SpringApplication.run(SpringBootMvcApplication.class, args);
     }
 
 }

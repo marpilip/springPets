@@ -1,10 +1,10 @@
-package bank.springpets;
+package bank.springbootmvc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringpetsApplicationTests {
+class SpringBootMvcApplicationTests {
 
     @Test
     void contextLoads() {
